@@ -27,7 +27,7 @@
 
 ## 发布
 
-网页（GitHub Pages，源＝main 分支 `docs/`）由 Actions 一键发布：**Actions → publish → Run workflow**。流程＝云端复跑脚本刷新 `docs/` → 数据有变化才提交推回 main → Pages 自动部署；无变化则跳过，不刷历史。本地验证可用 `./presbys.sh --out docs`，但不要直接提交 `docs/`——它是发布产物，下次发布会覆盖手改。
+网页（GitHub Pages，源＝main 分支 `docs/`）由 Actions 的 `publish` workflow 发布：**Actions → publish → Run workflow** 一键手动触发，或**每天 16:30（Asia/Shanghai）自动运行一次**。流程＝云端复跑脚本刷新 `docs/` → 数据有变化才提交推回 main → Pages 自动部署；无变化则跳过，不刷历史。本地验证可用 `./presbys.sh --out docs`，但不要直接提交 `docs/`——它是发布产物，下次发布会覆盖手改。
 
 ## 输出
 

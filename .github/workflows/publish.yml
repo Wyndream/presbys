@@ -2,6 +2,9 @@ name: publish
 
 on:
   workflow_dispatch:
+  schedule:
+    # 每天 16:30 Asia/Shanghai（GitHub cron 只认 UTC，16:30 CST = 08:30 UTC）
+    - cron: '30 8 * * *'
 
 permissions:
   contents: write
