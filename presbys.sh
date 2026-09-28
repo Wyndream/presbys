@@ -111,12 +111,11 @@ jq -r --arg asof "$AS_OF" "$JQ_DEFS"'
   | .[]
   | "<div class=\"card\"><div class=\"card-value\">\(.value)</div><div class=\"card-label\">\(.label)</div><div class=\"card-sub\">\(.sub)</div></div>"' "$SNAPSHOT" > "$CARDS"
 
-# 装配 HTML
-GEN="$(date '+%F %T %z')"
-awk -v asof="$AS_OF" -v gen="$GEN" -v rows="$ROWS" -v cards="$CARDS" '
+# 装配 HTML（不含墙钟时间戳：同一快照+同一 as-of 重跑必须零差异，publish workflow 的「无变化跳过」依赖这一点）
+awk -v asof="$AS_OF" -v rows="$ROWS" -v cards="$CARDS" '
   /<!--ROWS-->/  { while ((getline l < rows)  > 0) print l; next }
   /<!--CARDS-->/ { while ((getline l < cards) > 0) print l; next }
-  { gsub(/@AS_OF@/, asof); gsub(/@GENERATED@/, gen); print }
+  { gsub(/@AS_OF@/, asof); print }
 ' "$DIR/template.html" > "$OUT/index.html"
 rm -f "$ROWS" "$CARDS"
 
