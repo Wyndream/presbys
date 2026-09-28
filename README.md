@@ -6,7 +6,7 @@
 
 它回答一个实际问题：**自己合成期货主力连续合约时，如果不下载已到期/退市合约的历史数据，最远能回溯多久？**
 
-**在线结果：<https://wyndream.github.io/presbys/>**（随仓库发布的当日快照；`./presbys.sh --out docs` 复跑后提交即可刷新）
+**在线结果：<https://wyndream.github.io/presbys/>**（由 GitHub Pages 托管，刷新方式见「发布」节）
 
 ## 结论速览（2026-09-28 快照）
 
@@ -24,6 +24,10 @@
 ```
 
 依赖仅 `bash` / `curl` / `jq` / `awk`。
+
+## 发布
+
+网页（GitHub Pages，源＝main 分支 `docs/`）由 Actions 一键发布：**Actions → publish → Run workflow**。流程＝云端复跑脚本刷新 `docs/` → 数据有变化才提交推回 main → Pages 自动部署；无变化则跳过，不刷历史。本地验证可用 `./presbys.sh --out docs`，但不要直接提交 `docs/`——它是发布产物，下次发布会覆盖手改。
 
 ## 输出
 

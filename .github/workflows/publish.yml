@@ -1,0 +1,36 @@
+name: publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 拉取快照并生成 docs
+        run: bash ./presbys.sh --out docs
+
+      - name: 提交并推送（Pages 随 main 分支 docs/ 自动部署）
+        run: |
+          if [ -z "$(git status --porcelain docs/)" ]; then
+            echo "数据无变化，跳过发布。" | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git commit -m "发布 $(date +%F) 快照"
+          git push
+          echo "已发布 $(date +%F) 快照，Pages 部署中：https://wyndream.github.io/presbys/" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          head -6 docs/presbys_products.csv >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
