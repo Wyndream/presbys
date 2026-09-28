@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>πρέσβυς · 在市期货合约长者录 — @AS_OF@</title>
+<style>
+:root {
+  --ink: #2b2620;
+  --ink-soft: #6b6257;
+  --paper: #f7f2e7;
+  --paper-2: #fdfbf5;
+  --aegean: #1f4e79;
+  --terracotta: #b5533c;
+  --line: #ddd3c0;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Georgia, "Times New Roman", serif;
+  line-height: 1.6;
+}
+.wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 64px; }
+.meander {
+  height: 10px;
+  background:
+    repeating-linear-gradient(90deg, var(--aegean) 0 12px, transparent 12px 18px),
+    linear-gradient(var(--aegean), var(--aegean));
+  background-size: 100% 4px, 100% 2px;
+  background-position: bottom, top;
+  background-repeat: repeat-x;
+  opacity: .85;
+}
+header { text-align: center; padding: 28px 0 8px; }
+h1 {
+  margin: 0 0 4px;
+  font-family: Georgia, "Times New Roman", "Songti SC", serif;
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--aegean);
+}
+h1 .latin { font-size: 20px; color: var(--ink-soft); font-style: italic; letter-spacing: .12em; }
+.tagline { margin: 6px 0 2px; font-size: 17px; }
+.asof { margin: 0; color: var(--ink-soft); font-size: 13.5px; }
+.cards {
+  display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+  margin: 26px 0 22px;
+}
+.card {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--aegean);
+  border-radius: 4px;
+  padding: 12px 18px;
+  min-width: 150px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(60, 50, 30, .08);
+}
+.card-value { font-size: 22px; font-weight: 700; font-family: Georgia, serif; color: var(--ink); }
+.card-label { font-size: 13px; color: var(--aegean); font-weight: 600; margin-top: 2px; }
+.card-sub { font-size: 12px; color: var(--ink-soft); }
+.filter { margin: 6px 0 12px; }
+.filter input {
+  width: 100%;
+  padding: 9px 14px;
+  font-size: 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.filter input:focus { outline: 2px solid var(--aegean); outline-offset: -1px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--paper-2); }
+thead th {
+  position: sticky; top: 0;
+  background: var(--aegean); color: #fff;
+  padding: 9px 10px; text-align: left;
+  font-weight: 600; white-space: nowrap;
+}
+tbody td { padding: 7px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+tbody tr:nth-child(even) { background: rgba(31, 78, 121, .035); }
+tbody tr:hover { background: rgba(181, 83, 60, .09); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.rank { color: var(--ink-soft); text-align: right; }
+.prod { font-weight: 700; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+th.num-h { text-align: right; }
+.tier {
+  display: inline-block; padding: 1px 9px; border-radius: 10px;
+  font-size: 12px; font-weight: 700; color: #fff;
+}
+.tier.t5 { background: #14604a; }
+.tier.t3 { background: #1a7f5a; }
+.tier.t2 { background: #2e9e6b; }
+.tier.t1 { background: #d9a441; }
+.tier.t0 { background: var(--terracotta); }
+footer {
+  margin-top: 30px; padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft); font-size: 12.5px;
+}
+footer a { color: var(--aegean); }
+footer p { margin: 4px 0; }
+@media (max-width: 640px) {
+  h1 { font-size: 32px; }
+  .card { min-width: 44%; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="meander"></div>
+  <header>
+    <h1>πρέσβυς <span class="latin">presbys</span></h1>
+    <p class="tagline">每个期货品种最年长的在市合约，已伫立多少天</p>
+    <p class="asof">快照日期 @AS_OF@ · 自然日口径 · 数据源 openctp</p>
+  </header>
+
+  <section class="cards">
+<!--CARDS-->
+  </section>
+
+  <div class="filter">
+    <input id="q" type="search" placeholder="筛选品种 / 交易所 / 合约……" oninput="filterRows()">
+  </div>
+
+  <table id="t">
+    <thead>
+      <tr><th>#</th><th>品种</th><th>交易所</th><th class="num-h">在市合约数</th><th>最早合约</th><th>上市日</th><th class="num-h">已存在天数</th><th>覆盖档</th></tr>
+    </thead>
+    <tbody>
+<!--ROWS-->
+    </tbody>
+  </table>
+
+  <footer>
+    <p>数据源：<a href="http://www.openctp.cn/dc_instruments.html">openctp 合约信息接口</a>（dict.openctp.cn/instruments?types=futures，返回天然只含在市合约）· 生成于 @GENERATED@</p>
+    <p>口径：品种＝ProductID；最早合约＝OpenDate 最小（并列取 ExpireDate 最近）；天数＝OpenDate → @AS_OF@ 的自然日差；覆盖档阈值 365 / 730 / 1095 / 1825 天 ↔ 1y / 2y / 3y / 5y。</p>
+    <p>注：<code>*_f</code> 为大商所月均价期货（2026 年新上市，与标准合约不同品种）；ZC（动力煤）虽在市但已长期无成交。</p>
+  </footer>
+</div>
+<script>
+function filterRows() {
+  var q = document.getElementById('q').value.toLowerCase();
+  document.querySelectorAll('#t tbody tr').forEach(function (tr) {
+    tr.style.display = tr.textContent.toLowerCase().indexOf(q) >= 0 ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
